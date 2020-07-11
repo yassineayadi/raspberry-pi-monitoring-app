@@ -20,7 +20,7 @@ app.layout = html.Div(children=[
                       children=[
                                 html.H1(children='Raspberry Pi {model}, {revision}'.format(model=pi_model['Model'], revision=pi_model['Revision'])),
                                 html.Div(children='Manufacturer: {manufacturer}'.format(manufacturer=pi_model['Manufacturer'])),
-                                html.Div(children='A web application to monitor the Raspberry Pi system stats.')
+                                html.Div(children='A web application to monitor the Raspberry Pi system stats in headless use.')
                                 ]
                       ),
 
