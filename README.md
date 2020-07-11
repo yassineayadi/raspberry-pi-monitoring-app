@@ -6,7 +6,7 @@
 
 This a system monitoring web application, built for headless Raspberry Pi set ups in mind. This is a personal webproject using [Dash](https://plot.ly/products/dash/) an interactive Python framework developed by [Plotly](https://plot.ly/).
 
-The web application runs locally and uses the default Dash port 8050. The following functionalities are support:
+The web application runs locally and uses the default Dash port 8050. The following functionalities are supported:
 
 **Automatic Detection of Pi Revision:**
 * Uses the revision number to identify the Pi version the application is currently running on.
