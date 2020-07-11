@@ -1,4 +1,5 @@
 # python venv
 venv/
 app/__pycache__/
+__pycache__/
 __init__.pyc
