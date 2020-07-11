@@ -4,10 +4,10 @@ This a system monitoring web application, built for headless Raspberry Pi set up
 
 The web application runs local and uses the default Dash port 8050. The following functionalities are support:
 
-Automatic Detection of Pi Revision:
+**Automatic Detection of Pi Revision:**
 * Uses the revision number to identify the Pi version the application is currently running on.
 
-Systems Information:
+**Systems Information:**
 * CPU Usage  % (Trend Line)
 * Memory Usage % (Bar Chart)
 * Disk Usage % (Pie Chart)
