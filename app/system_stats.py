@@ -91,9 +91,8 @@ def convert_time_delta_to_string(timedelta):
     return '{:02}h: {:02}m: {:02}s'.format(int(hours), int(minutes), int(seconds))
 
 def get_pi_revisions():
-    # gets relative path of parent folder
-    path = str(Path.cwd().parent) + '/raspberry_pi_revision_codes.json'
-    path = str(Path.cwd()) + '/raspberry_pi_revision_codes.json'
+    # gets relative path of current folder
+    path = str(Path.cwd()) + '/app/assets/raspberry_pi_revision_codes.json'
     # reads json file
     with open(path) as f:
         revision_json = json.load(f)
