@@ -1,7 +1,7 @@
 import dash
 from flask import Flask
 
-server = Flask(__name__) 
+server = Flask(__name__)
 
 external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
 

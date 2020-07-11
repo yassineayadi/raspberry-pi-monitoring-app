@@ -1,6 +1,7 @@
 import dash_html_components as html
 from collections import deque
 
+
 # currently not used
 def generate_table(dataframe, max_rows=10):
     return html.Table([
@@ -14,7 +15,10 @@ def generate_table(dataframe, max_rows=10):
         ])
     ])
 
-numeric_l = lambda i: 'numeric' if i in ['cpu_percent','memory_percent'] else 'text'
+
+# lambda function to define the datatype of each column for the DataTable
+numeric_l = lambda i: 'numeric' if i in ['cpu_percent', 'memory_percent'] else 'text'
+
 
 class DequeHolder:
     def __init__(self):

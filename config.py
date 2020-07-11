@@ -1,3 +1,4 @@
 class Config:
-    debug = True
-    # SQLALCHEMY_TRACK_MODIFICATIONS = False
+
+    # set debug to True to enter Dash/Flask debut mode
+    debug = False
