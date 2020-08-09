@@ -1,6 +1,8 @@
-from app import app
-from app.system_stats import get_disk_usage, get_cpu_usage, get_memory_usage, get_current_pi_revision, create_system_table
-from app.helpers import numeric_l, DequeHolder
+from app import app, pi
+# from app.system_stats import get_disk_usage, get_cpu_usage, get_memory_usage, get_current_pi_revision, create_system_table
+# from app.system import RaspberryPi
+
+from app.helpers import numeric_l, DequeHolder, create_system_table
 import pandas as pd
 
 import dash_core_components as dcc
@@ -12,7 +14,8 @@ import dash_table
 import dash_table.FormatTemplate as FormatTemplate
 
 
-pi_model = get_current_pi_revision()
+pi_model = pi.revision
+# pi_model = get_current_pi_revision()
 
 app.layout = html.Div(children=[
 
@@ -113,7 +116,7 @@ dequeholder = DequeHolder()
               [Input(component_id='update-graph', component_property='n_intervals')])
 def update_cpu_graph(n):
 
-    cpu_monitor = get_cpu_usage()
+    cpu_monitor = pi.get_cpu_usage()
 
     X = dequeholder.X
     Y = dequeholder.Y
@@ -139,7 +142,7 @@ def update_cpu_graph(n):
               [Input(component_id='update-graph', component_property='n_intervals')])
 def update_memory_graph(n):
 
-    memory_monitor = get_memory_usage()
+    memory_monitor = pi.get_memory_usage()
 
     x = ['', '']
     y = [memory_monitor['values']['total'], memory_monitor['values']['used']]
@@ -163,7 +166,7 @@ def update_memory_graph(n):
 @app.callback(Output(component_id='disk-graph', component_property='figure'),
               [Input(component_id='update-graph', component_property='n_intervals')])
 def update_disk_graph(n):
-    disk_monitor = get_disk_usage()
+    disk_monitor = pi.get_disk_usage()
 
     df = pd.DataFrame.from_dict(disk_monitor['values'], orient='index', columns=['disk'])
 
@@ -187,7 +190,7 @@ def update_disk_graph(n):
               Output(component_id='processes-table', component_property='data')],
               [Input(component_id='update-graph', component_property='n_intervals')])
 def update_processes_table(n):
-    df = create_system_table()
+    df = create_system_table(pi.get_current_processes())
 
     # format percentage currently defined for ALL columns. However only applied for numeric (as per DataTable documentation)
     columns = [{"name": i, "id": i, "type": numeric_l(i), "format": FormatTemplate.percentage(2)} for i in df.columns]

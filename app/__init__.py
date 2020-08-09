@@ -1,5 +1,9 @@
+from app.system import RaspberryPi
 import dash
 from flask import Flask
+
+# initializing the current pi instance
+pi = RaspberryPi()
 
 server = Flask(__name__)
 
@@ -9,4 +13,4 @@ app = dash.Dash(server=server, external_stylesheets=external_stylesheets)
 
 app.title = 'System Monitor App'
 
-from app import layout, system_stats
+from app import layout
