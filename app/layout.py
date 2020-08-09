@@ -1,8 +1,6 @@
 from app import app, pi
-# from app.system_stats import get_disk_usage, get_cpu_usage, get_memory_usage, get_current_pi_revision, create_system_table
-# from app.system import RaspberryPi
 
-from app.helpers import numeric_l, DequeHolder, create_system_table
+from app.helpers import numeric_l, DequeHolder
 import pandas as pd
 
 import dash_core_components as dcc
@@ -14,15 +12,12 @@ import dash_table
 import dash_table.FormatTemplate as FormatTemplate
 
 
-pi_model = pi.revision
-# pi_model = get_current_pi_revision()
-
 app.layout = html.Div(children=[
 
              html.Div(className='row',
                       children=[
-                                html.H1(children='Raspberry Pi {model}, {revision}'.format(model=pi_model['Model'], revision=pi_model['Revision'])),
-                                html.Div(children='Manufacturer: {manufacturer}'.format(manufacturer=pi_model['Manufacturer'])),
+                                html.H1(children='Raspberry Pi {model}, {revision}'.format(model=pi.revision['Model'], revision=pi.revision['Revision'])),
+                                html.Div(children='Manufacturer: {manufacturer}'.format(manufacturer=pi.revision['Manufacturer'])),
                                 html.Div(children='A web application to monitor the Raspberry Pi system stats in headless use.')
                                 ]
                       ),
@@ -185,7 +180,7 @@ def update_disk_graph(n):
 
     return fig
 
-
+# process table implementation
 @app.callback([Output(component_id='processes-table', component_property='columns'),
               Output(component_id='processes-table', component_property='data')],
               [Input(component_id='update-graph', component_property='n_intervals')])

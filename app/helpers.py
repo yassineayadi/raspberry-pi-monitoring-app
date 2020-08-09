@@ -22,7 +22,7 @@ def create_system_table(dict_data, sort_column='memory_percent') -> pd.DataFrame
     df = df.head(20)
     return df
 
-
+# used for process dictonary creation
 def convert_time_delta_to_string(timedelta):
 
     # total number of seconds
@@ -42,7 +42,7 @@ def convert_time_delta_to_string(timedelta):
 # lambda function to define the datatype of each column for the DataTable
 numeric_l = lambda i: 'numeric' if i in ['cpu_percent', 'memory_percent'] else 'text'
 
-
+# used for trailing 60 data points, line plot
 class DequeHolder:
     def __init__(self):
         self.X = deque(maxlen=60)
