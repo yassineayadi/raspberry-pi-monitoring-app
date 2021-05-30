@@ -11,93 +11,95 @@ from dash.dependencies import Input, Output
 import dash_table
 import dash_table.FormatTemplate as FormatTemplate
 
-
 app.layout = html.Div(children=[
 
-             html.Div(className='row',
-                      children=[
-                                html.H1(children='Raspberry Pi {model}, {revision}'.format(model=pi.revision['Model'], revision=pi.revision['Revision'])),
-                                html.Div(children='Manufacturer: {manufacturer}'.format(manufacturer=pi.revision['Manufacturer'])),
-                                html.Div(children='A web application to monitor the Raspberry Pi system stats in headless use.')
-                                ]
-                      ),
+    html.Div(className='row',
+             children=[
+                 html.H1(children='Raspberry Pi {model}, {revision}'.format(model=pi.revision['Model'],
+                                                                            revision=pi.revision['Revision'])),
+                 html.Div(children='Manufacturer: {manufacturer}'.format(manufacturer=pi.revision['Manufacturer'])),
+                 html.Div(children='A web application to monitor the Raspberry Pi system stats in headless use.')
+             ]
+             ),
 
-             html.Div(className='row',
-                      children=[
-                                dcc.Graph(id='cpu-graph', animate=True, className='six columns', config={'displayModeBar': False}),
-                                dcc.Graph(id='memory-graph', animate=True, className='three columns', config={'displayModeBar': False}),
-                                dcc.Graph(id='disk-graph', animate=True, className='three columns', config={'displayModeBar': False})
-                                ]
-                      ),
+    html.Div(className='row',
+             children=[
+                 dcc.Graph(id='cpu-graph', animate=True, className='six columns', config={'displayModeBar': False}),
+                 dcc.Graph(id='memory-graph', animate=True, className='three columns',
+                           config={'displayModeBar': False}),
+                 dcc.Graph(id='disk-graph', animate=True, className='three columns', config={'displayModeBar': False})
+             ]
+             ),
 
-             html.Div(className='row',
-                      children=[
-                                html.H4(children='Processes Currently Running'),
-                                dash_table.DataTable(
-                                                     id='processes-table',
-                                                     sort_action="native",
-                                                     filter_action='native',
-                                                     style_as_list_view=True,
+    html.Div(className='row',
+             children=[
+                 html.H4(children='Processes Currently Running'),
+                 dash_table.DataTable(
+                     id='processes-table',
+                     sort_action="native",
+                     filter_action='native',
+                     style_as_list_view=True,
 
-                                                    # Note: DataTable style does not take external_stylesheet, needs to be explicetly defined
-                                                     style_cell={'font-family':["Open Sans", "HelveticaNeue", "Helvetica Neue", "Helvetica", "Arial","sans-serif"]},
-                                                     style_data_conditional=[
-                                                        # memory_percent formatting
-                                                        {
-                                                         'if': {
-                                                                'filter_query': '{memory_percent} >= 0.05',
-                                                                'column_id': 'memory_percent'
-                                                                },
-                                                         'backgroundColor': 'rgb(95, 70, 144)',
-                                                         'color': 'white',
-                                                         'opacity': 0.8},
-                                                        {
-                                                         'if': {'filter_query': '{memory_percent} < 0.05 && {memory_percent} >= 0.02',
-                                                                'column_id': 'memory_percent'
-                                                                },
-                                                         'backgroundColor': 'rgb(95, 70, 144)',
-                                                         'color': 'white',
-                                                         'opacity': 0.5
-                                                         },
-                                                        {
-                                                         'if': {
-                                                                'filter_query': '{memory_percent} < 0.02 && {memory_percent} >= 0.005',
-                                                                'column_id': 'memory_percent'
-                                                                },
-                                                         'backgroundColor': 'rgb(95, 70, 144)',
-                                                         'color': 'white',
-                                                         'opacity': 0.3
-                                                         },
+                     # Note: DataTable style does not take external_stylesheet, needs to be explicetly defined
+                     style_cell={'font-family': ["Open Sans", "HelveticaNeue", "Helvetica Neue", "Helvetica", "Arial",
+                                                 "sans-serif"]},
+                     style_data_conditional=[
+                         # memory_percent formatting
+                         {
+                             'if': {
+                                 'filter_query': '{memory_percent} >= 0.05',
+                                 'column_id': 'memory_percent'
+                             },
+                             'backgroundColor': 'rgb(95, 70, 144)',
+                             'color': 'white',
+                             'opacity': 0.8},
+                         {
+                             'if': {'filter_query': '{memory_percent} < 0.05 && {memory_percent} >= 0.02',
+                                    'column_id': 'memory_percent'
+                                    },
+                             'backgroundColor': 'rgb(95, 70, 144)',
+                             'color': 'white',
+                             'opacity': 0.5
+                         },
+                         {
+                             'if': {
+                                 'filter_query': '{memory_percent} < 0.02 && {memory_percent} >= 0.005',
+                                 'column_id': 'memory_percent'
+                             },
+                             'backgroundColor': 'rgb(95, 70, 144)',
+                             'color': 'white',
+                             'opacity': 0.3
+                         },
 
-                                                        # cpu_percent formatting
-                                                        {
-                                                         'if': {
-                                                                'filter_query': '{cpu_percent} >= 0.05',
-                                                                'column_id': 'cpu_percent'
-                                                                },
-                                                         'backgroundColor': 'rgb(95, 70, 144)',
-                                                         'color': 'white',
-                                                         'opacity': 0.8
-                                                         },
-                                                        {
-                                                         'if': {
-                                                                'filter_query': '{cpu_percent} < 0.05 && {cpu_percent} >= 0.02',
-                                                                'column_id': 'cpu_percent'
-                                                                },
-                                                          'backgroundColor': 'rgb(95, 70, 144)',
-                                                          'color': 'white',
-                                                          'opacity': 0.5
-                                                         },
-                                                        ]
-                                                    )
-                                ]
-                      ),
+                         # cpu_percent formatting
+                         {
+                             'if': {
+                                 'filter_query': '{cpu_percent} >= 0.05',
+                                 'column_id': 'cpu_percent'
+                             },
+                             'backgroundColor': 'rgb(95, 70, 144)',
+                             'color': 'white',
+                             'opacity': 0.8
+                         },
+                         {
+                             'if': {
+                                 'filter_query': '{cpu_percent} < 0.05 && {cpu_percent} >= 0.02',
+                                 'column_id': 'cpu_percent'
+                             },
+                             'backgroundColor': 'rgb(95, 70, 144)',
+                             'color': 'white',
+                             'opacity': 0.5
+                         },
+                     ]
+                 )
+             ]
+             ),
 
-             dcc.Interval(
-                         id='update-graph',
-                         interval=1000,
-                         n_intervals=0
-                         )
+    dcc.Interval(
+        id='update-graph',
+        interval=1000,
+        n_intervals=0
+    )
 
 ]
 )
@@ -110,7 +112,6 @@ dequeholder = DequeHolder()
 @app.callback(Output(component_id='cpu-graph', component_property='figure'),
               [Input(component_id='update-graph', component_property='n_intervals')])
 def update_cpu_graph(n):
-
     cpu_monitor = pi.get_cpu_usage()
 
     X = dequeholder.X
@@ -125,7 +126,7 @@ def update_cpu_graph(n):
                   line_shape='spline',
                   labels={'x': 'time', 'y': 'Cpu Usage %'},
                   range_x=[min(x), max(x)],
-                  range_y=[min(y)*0.8, max(y)*1.1],
+                  range_y=[min(y) * 0.8, max(y) * 1.1],
                   color_discrete_sequence=px.colors.qualitative.Prism
                   )
 
@@ -136,12 +137,11 @@ def update_cpu_graph(n):
 @app.callback(Output(component_id='memory-graph', component_property='figure'),
               [Input(component_id='update-graph', component_property='n_intervals')])
 def update_memory_graph(n):
-
     memory_monitor = pi.get_memory_usage()
 
     x = ['', '']
     y = [memory_monitor['values']['total'], memory_monitor['values']['used']]
-    customdata = [y[1]/y[0] for i in range(len(y))]
+    customdata = [y[1] / y[0] for i in range(len(y))]
 
     fig = px.bar(x=x, y=y, text=y,
                  barmode='overlay',
@@ -180,9 +180,10 @@ def update_disk_graph(n):
 
     return fig
 
+
 # process table implementation
 @app.callback([Output(component_id='processes-table', component_property='columns'),
-              Output(component_id='processes-table', component_property='data')],
+               Output(component_id='processes-table', component_property='data')],
               [Input(component_id='update-graph', component_property='n_intervals')])
 def update_processes_table(n):
     df = create_system_table(pi.get_current_processes())
