@@ -1,6 +1,5 @@
-import psutil, time
+import psutil
 import pandas as pd
-# import matplotlib.pyplot as plt
 from collections import deque
 from datetime import datetime
 
@@ -32,23 +31,23 @@ def disk():
     return disk
 
 
-def cpu():
+def cpu_data():
     timestamp = datetime.now()
     cpu_percent = psutil.cpu_percent()
 
     return (timestamp, cpu_percent)
 
 
-def memory():
-    timestamp = datetime.now()
-    memory = psutil.virtual_memory()
-    available = round(memory.available / 1024.0 / 1024.0, 0)
-    total = round(memory.total / 1024.0 / 1024.0, 0)
+# def memory():
+#     timestamp = datetime.now()
+#     memory = psutil.virtual_memory()
+#     available = round(memory.available / 1024.0 / 1024.0, 0)
+#     total = round(memory.total / 1024.0 / 1024.0, 0)
+#
+#     return (timestamp, total, available)
 
-    return (timestamp, total, available)
 
-
-def memory():
+def memory_data():
     timestamp = datetime.now()
     memory = psutil.virtual_memory()
     available = round(memory.available / 1024.0 / 1024.0, 0)
@@ -135,7 +134,7 @@ def update_cpu_graph(n):
     global X
     global Y
 
-    disk_monitor = cpu()
+    disk_monitor = cpu_data()
     X.append(disk_monitor[0])
     Y.append(disk_monitor[1])
 
@@ -156,7 +155,7 @@ def update_cpu_graph(n):
 @app.callback(Output(component_id='memory-graph', component_property='figure'),
               [Input(component_id='update-graph', component_property='n_intervals')])
 def update_memory_graph(n):
-    memory_monitor = memory()
+    memory_monitor = memory_data()
 
     x = ['', '']
     y = [memory_monitor['values']['total'], memory_monitor['values']['available']]

@@ -2,6 +2,7 @@ import dash_html_components as html
 from collections import deque
 import pandas as pd
 
+
 # currently not used
 def generate_table(dataframe, max_rows=10):
     return html.Table([
@@ -18,13 +19,13 @@ def generate_table(dataframe, max_rows=10):
 
 def create_system_table(dict_data, sort_column='memory_percent') -> pd.DataFrame:
     df = pd.DataFrame.from_dict(dict_data, orient='index')
-    df.sort_values(by= sort_column, ascending=False, inplace=True)
+    df.sort_values(by=sort_column, ascending=False, inplace=True)
     df = df.head(20)
     return df
 
+
 # used for process dictonary creation
 def convert_time_delta_to_string(timedelta):
-
     # total number of seconds
     s = timedelta.total_seconds()
     # hours
@@ -41,6 +42,7 @@ def convert_time_delta_to_string(timedelta):
 
 # lambda function to define the datatype of each column for the DataTable
 numeric_l = lambda i: 'numeric' if i in ['cpu_percent', 'memory_percent'] else 'text'
+
 
 # used for trailing 60 data points, line plot
 class DequeHolder:

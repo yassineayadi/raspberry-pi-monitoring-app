@@ -1,6 +1,6 @@
 from app import app, pi
 
-from app.helpers import numeric_l, DequeHolder
+from app.helpers import DequeHolder, create_system_table
 import pandas as pd
 
 import dash_core_components as dcc
@@ -188,8 +188,10 @@ def update_disk_graph(n):
 def update_processes_table(n):
     df = create_system_table(pi.get_current_processes())
 
-    # format percentage currently defined for ALL columns. However only applied for numeric (as per DataTable documentation)
-    columns = [{"name": i, "id": i, "type": numeric_l(i), "format": FormatTemplate.percentage(2)} for i in df.columns]
+    # format percentage currently defined for ALL columns. However only applied for numeric (as per DataTable
+    # documentation)
+    columns = [{"name": i, "id": i, "type": lambda i: 'numeric' if i in ['cpu_percent', 'memory_percent'] else 'text',
+                "format": FormatTemplate.percentage(2)} for i in df.columns]
 
     # returns df in dict format
     data = df.to_dict("records")
